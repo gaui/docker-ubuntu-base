@@ -4,9 +4,10 @@ A Docker image containing:
 
 - Ubuntu 18.04
 - Docker 18.06.0
+- Git 2.18.0
 - Node 10
 - Yarn 1.9.4
-- TypeScript (+ts-node)
+- TypeScript 3.0.3 (+ts-node)
 
 And some Linux packages:
 
@@ -20,7 +21,7 @@ And some Linux packages:
 - dnsutils
 - net-tools
 - vim
-- git
+- moreutils
 
 ## Change versions
 
@@ -32,3 +33,15 @@ Example:
 ```bash
 docker build . -t myimage:mytag --build-arg UBUNTU_VERSION=16.04
 ```
+
+## Changelog
+
+### 1.1.0
+
+- Added Git 2.18.0
+- Added `moreutils` package
+- Upgraded TypeScript to 3.0.3 (pinned version)
+
+### 1.0.0
+
+- Initial release
