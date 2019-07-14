@@ -2,12 +2,12 @@
 
 A Docker image containing:
 
-- Ubuntu 18.04
-- Docker 18.06.0
-- Git 2.18.0
-- Node 10
-- Yarn 1.9.4
-- TypeScript 3.0.3 (+ts-node)
+- Ubuntu 18.10 (cosmic)
+- Docker 18.09.7
+- Git 2.22.0
+- Node 12
+- Yarn 1.16.3
+- TypeScript 3.5 (+babel)
 
 And some Linux packages:
 
@@ -31,10 +31,19 @@ just use `--build-arg` with the `docker build` command.
 Example:
 
 ```bash
-docker build . -t myimage:mytag --build-arg UBUNTU_VERSION=16.04
+docker build . -t myimage:mytag --build-arg UBUNTU_VERSION=19.04
 ```
 
 ## Changelog
+
+### 2.0.0
+
+- Ubuntu 18.10 (cosmic)
+- Docker 18.09.7
+- Git 2.22.0
+- Node 12
+- Yarn 1.16.3
+- TypeScript 3.5 + Babel instead of ts-node
 
 ### 1.1.0
 
