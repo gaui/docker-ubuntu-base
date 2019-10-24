@@ -1,15 +1,18 @@
-# Superpowered Ubuntu base image
+# Superpowered Ubuntu base Docker image
+
+**Ubuntu 18.10 (cosmic)**
 
 A Docker image containing:
 
-- Ubuntu 18.10 (cosmic)
-- Docker 18.09.7
-- Git 2.22.0
-- Node 12
-- Yarn 1.16.3
-- TypeScript 3.5 (+babel)
+- DOCKER_VERSION = 19.03.4
+- DOCKER_COMPOSE_VERSION = 1.24.1
+- GIT_VERSION = 2.22.0
+- NODE_VERSION = 12
+- YARN_VERSION = 1.19.1
+- TYPESCRIPT_VERSION = 3.6.4
+- BABEL_VERSION = 7.6.3
 
-And some Linux packages:
+And some Linux utilities:
 
 - wget
 - unzip
@@ -35,6 +38,16 @@ docker build . -t myimage:mytag --build-arg UBUNTU_VERSION=19.04
 ```
 
 ## Changelog
+
+### 3.0.0
+
+- Ubuntu 18.10 (cosmic)
+- Docker CE 19.03.4 (Engine + CLI)
+- Docker Compose 1.24.1
+- Node 12
+- Yarn 1.19.1
+- TypeScript 3.6.4
+- Babel 7.6.3 (Core + Node)
 
 ### 2.0.0
 
