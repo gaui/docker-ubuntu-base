@@ -7,6 +7,7 @@ A Docker image containing:
 - DOCKER_VERSION = 19.03.4
 - DOCKER_COMPOSE_VERSION = 1.24.1
 - GIT_VERSION = 2.22.0
+- NVM_VERSION = 0.35.0
 - NODE_VERSION = 12
 - YARN_VERSION = 1.19.1
 - TYPESCRIPT_VERSION = 3.6.4
@@ -38,6 +39,10 @@ docker build . -t myimage:mytag --build-arg UBUNTU_VERSION=19.04
 ```
 
 ## Changelog
+
+### 3.1.0
+
+- Use nvm to manage Node versions
 
 ### 3.0.0
 

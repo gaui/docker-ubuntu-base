@@ -1,10 +1,10 @@
 ARG UBUNTU_VERSION=18.10
 
 FROM ubuntu:${UBUNTU_VERSION}
-
 ARG DOCKER_VERSION=19.03.4
 ARG DOCKER_COMPOSE_VERSION=1.24.1
 ARG GIT_VERSION=2.22.0
+ARG NVM_VERSION=0.35.0
 ARG NODE_VERSION=12
 ARG YARN_VERSION=1.19.1
 ARG TYPESCRIPT_VERSION=3.6.4
@@ -22,11 +22,12 @@ RUN apt-get -yqq update && apt-get -y install \
 
 RUN apt-add-repository -y ppa:git-core/ppa
 
-# Node and Yarn
+# nvm and Yarn
 
-RUN curl -sSL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash -
-RUN wget -qO - https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo deb https://dl.yarnpkg.com/debian/ stable main | tee /etc/apt/sources.list.d/yarn.list
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh | bash \
+    && bash -c 'chmod +x ~/.nvm/nvm.sh && exec ~/.nvm/nvm.sh && nvm install ${NODE_VERSION}'
+RUN wget -qO - https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+    && echo deb https://dl.yarnpkg.com/debian/ stable main | tee /etc/apt/sources.list.d/yarn.list
 
 # Docker
 
@@ -38,7 +39,7 @@ RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - \
 # Install all packages
 
 RUN apt-get -yqq update && apt-get -y install \
-    nodejs yarn=${YARN_VERSION}-1 git=1:${GIT_VERSION}-0ppa1~ubuntu`lsb_release -sr`.1 \
+    yarn=${YARN_VERSION}-1 git=1:${GIT_VERSION}-0ppa1~ubuntu`lsb_release -sr`.1 \
     unzip iputils-ping inetutils-traceroute telnet nmap dnsutils net-tools vim \
     jq moreutils docker-ce=5:${DOCKER_VERSION}~3-0~ubuntu-`lsb_release -cs` \
     docker-ce-cli=5:${DOCKER_VERSION}~3-0~ubuntu-`lsb_release -cs`
