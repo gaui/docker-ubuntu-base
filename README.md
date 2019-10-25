@@ -40,6 +40,11 @@ docker build . -t myimage:mytag --build-arg UBUNTU_VERSION=19.04
 
 ## Changelog
 
+### 3.1.1
+
+- Fixed installation of nvm
+- Fixed entrypoint of Dockerfile
+
 ### 3.1.0
 
 - Use nvm to manage Node versions

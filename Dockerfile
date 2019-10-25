@@ -1,6 +1,9 @@
 ARG UBUNTU_VERSION=18.10
 
 FROM ubuntu:${UBUNTU_VERSION}
+
+SHELL ["bash", "-c"]
+
 ARG DOCKER_VERSION=19.03.4
 ARG DOCKER_COMPOSE_VERSION=1.24.1
 ARG GIT_VERSION=2.22.0
@@ -14,6 +17,8 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV NODE_PATH=/usr/lib/node_modules
 ENV KUBECONFIG=kubeconfig
 
+WORKDIR /tmp
+
 RUN apt-get -yqq update && apt-get -y install \
     gnupg curl wget software-properties-common apt-transport-https \
     ca-certificates
@@ -22,10 +27,15 @@ RUN apt-get -yqq update && apt-get -y install \
 
 RUN apt-add-repository -y ppa:git-core/ppa
 
-# nvm and Yarn
+# nvm
 
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh | bash \
-    && bash -c 'chmod +x ~/.nvm/nvm.sh && exec ~/.nvm/nvm.sh && nvm install ${NODE_VERSION}'
+ENV NVM_DIR /root/.nvm
+RUN wget -qO nvm.sh https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh \
+    && chmod +x nvm.sh \
+    && ./nvm.sh
+
+# Yarn
+
 RUN wget -qO - https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
     && echo deb https://dl.yarnpkg.com/debian/ stable main | tee /etc/apt/sources.list.d/yarn.list
 
@@ -49,5 +59,3 @@ RUN apt-get -yqq update && apt-get -y install \
 RUN yarn global add \
     typescript@${TYPESCRIPT_VERSION} @babel/core@${BABEL_VERSION} \
     @babel/node@${BABEL_VERSION} @babel/preset-typescript
-
-CMD ["/etc/bash"]
