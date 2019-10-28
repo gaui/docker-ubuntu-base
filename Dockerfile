@@ -33,6 +33,8 @@ ENV NVM_DIR /root/.nvm
 RUN wget -qO nvm.sh https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh \
     && chmod +x nvm.sh \
     && ./nvm.sh
+COPY ./files/nvm.sh /usr/local/bin/nvm
+RUN chmod +x /usr/local/bin/nvm
 
 # Yarn
 

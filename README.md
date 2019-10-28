@@ -40,6 +40,10 @@ docker build . -t myimage:mytag --build-arg UBUNTU_VERSION=19.04
 
 ## Changelog
 
+### 3.1.2
+
+- Make nvm executable in PATH as a non-login shell (without initiating profile.d)
+
 ### 3.1.1
 
 - Fixed installation of nvm
