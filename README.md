@@ -7,8 +7,8 @@ A Docker image containing:
 - DOCKER_VERSION = 19.03.4
 - DOCKER_COMPOSE_VERSION = 1.24.1
 - GIT_VERSION = 2.22.0
-- NVM_VERSION = 0.35.0
-- NODE_VERSION = 12
+- FNM_VERSION = 1.15.0
+- NODE_VERSION = 12.13.0
 - YARN_VERSION = 1.19.1
 - TYPESCRIPT_VERSION = 3.6.4
 - BABEL_VERSION = 7.6.3
@@ -26,6 +26,7 @@ And some Linux utilities:
 - net-tools
 - vim
 - moreutils
+- 7zip
 
 ## Change versions
 
@@ -39,6 +40,12 @@ docker build . -t myimage:mytag --build-arg UBUNTU_VERSION=19.04
 ```
 
 ## Changelog
+
+### 3.2.0
+
+- Added 7zip
+- Pin NodeJS to v12.13.0 (or `$NODE_VERSION`)
+- Replaced nvm with fnm (https://github.com/Schniz/fnm)
 
 ### 3.1.2
 

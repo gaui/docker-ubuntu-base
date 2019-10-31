@@ -1,40 +1,43 @@
+# syntax=docker/dockerfile:experimental
+
 ARG UBUNTU_VERSION=18.10
 
 FROM ubuntu:${UBUNTU_VERSION}
 
-SHELL ["bash", "-c"]
-
 ARG DOCKER_VERSION=19.03.4
 ARG DOCKER_COMPOSE_VERSION=1.24.1
 ARG GIT_VERSION=2.22.0
-ARG NVM_VERSION=0.35.0
-ARG NODE_VERSION=12
+ARG FNM_VERSION=1.15.0
+ARG NODE_VERSION=12.13.0
 ARG YARN_VERSION=1.19.1
 ARG TYPESCRIPT_VERSION=3.6.4
 ARG BABEL_VERSION=7.6.3
 
+ENV NODE_VERSION=${NODE_VERSION}
 ENV DEBIAN_FRONTEND noninteractive
 ENV NODE_PATH=/usr/lib/node_modules
 ENV KUBECONFIG=kubeconfig
+ENV FNM_DIR /root/.fnm
+ENV FNM_INTERACTIVE_CLI false
 
 WORKDIR /tmp
 
-RUN apt-get -yqq update && apt-get -y install \
+COPY ./entrypoint.sh .
+
+RUN apt-get -yqq update && apt-get -yqq install \
     gnupg curl wget software-properties-common apt-transport-https \
-    ca-certificates
+    p7zip-full unzip xz-utils ca-certificates
 
 # Git
 
 RUN apt-add-repository -y ppa:git-core/ppa
 
-# nvm
+# fnm (Node Version Manager)
 
-ENV NVM_DIR /root/.nvm
-RUN wget -qO nvm.sh https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh \
-    && chmod +x nvm.sh \
-    && ./nvm.sh
-COPY ./files/nvm.sh /usr/local/bin/nvm
-RUN chmod +x /usr/local/bin/nvm
+RUN wget -q https://github.com/Schniz/fnm/releases/download/v${FNM_VERSION}/fnm-linux.zip \
+    && unzip -j fnm-linux.zip \
+    && chmod +x fnm \
+    && mv fnm /usr/local/bin/
 
 # Yarn
 
@@ -50,7 +53,7 @@ RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - \
 
 # Install all packages
 
-RUN apt-get -yqq update && apt-get -y install \
+RUN apt-get -yqq update && apt-get -yqq install \
     yarn=${YARN_VERSION}-1 git=1:${GIT_VERSION}-0ppa1~ubuntu`lsb_release -sr`.1 \
     unzip iputils-ping inetutils-traceroute telnet nmap dnsutils net-tools vim \
     jq moreutils docker-ce=5:${DOCKER_VERSION}~3-0~ubuntu-`lsb_release -cs` \
@@ -61,3 +64,5 @@ RUN apt-get -yqq update && apt-get -y install \
 RUN yarn global add \
     typescript@${TYPESCRIPT_VERSION} @babel/core@${BABEL_VERSION} \
     @babel/node@${BABEL_VERSION} @babel/preset-typescript
+
+ENTRYPOINT ["/bin/bash", "./entrypoint.sh"]
