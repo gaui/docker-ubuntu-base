@@ -1,17 +1,17 @@
 # Superpowered Ubuntu base Docker image
 
-**Ubuntu 18.10 (cosmic)**
+**Ubuntu 20.04 (focal fossa)**
 
 A Docker image containing:
 
-- DOCKER_VERSION = 19.03.4
-- DOCKER_COMPOSE_VERSION = 1.24.1
-- GIT_VERSION = 2.22.0
-- FNM_VERSION = 1.15.0
-- NODE_VERSION = 12.13.0
-- YARN_VERSION = 1.19.1
-- TYPESCRIPT_VERSION = 3.6.4
-- BABEL_VERSION = 7.6.3
+- DOCKER_VERSION = 19.03.11
+- DOCKER_COMPOSE_VERSION = 1.26.2
+- GIT_VERSION = 2.27.0
+- FNM_VERSION = 1.21.0
+- NODE_VERSION = 13.14.0
+- YARN_VERSION = 1.22.4
+- TYPESCRIPT_VERSION = 3.9.7
+- BABEL_VERSION = 7.10.5
 
 And some Linux utilities:
 
@@ -40,6 +40,17 @@ docker build . -t myimage:mytag --build-arg UBUNTU_VERSION=19.04
 ```
 
 ## Changelog
+
+### 4.0.0
+
+- Upgrade Docker image to Ubuntu 20.04 (Focal Fossa)
+- Upgrade Docker to 19.03.11
+- Upgrade Git to 2.27.0
+- Upgrade fnm to 1.21.0
+- Upgrade Node to 13.14.0
+- Upgrade Yarn to 1.22.4
+- Upgrade TypeScript to 3.9.7
+- Upgrade Babel to 7.10.5
 
 ### 3.2.0
 
